@@ -1,5 +1,5 @@
 {
-    "name": "UnderwaterMystery",
+    "name": "SpaceMystery",
     "rootNamespace": "",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
@@ -7,7 +7,6 @@
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
         "GUID:0c752da273b17c547ae705acf0f2adf2",
         "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:48c9f6afdac61634db0e0f241c7d4d51",
         "GUID:2665a8d13d1b3f18800f46e256720795",
         "GUID:e0cd26848372d4e5c891c569017e11f1"
     ],

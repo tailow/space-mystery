@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{62711451-a647-4cec-a3bc-9a09b4b8ace4}">
+		<property name="assetPath">
+			<value>y2mate.com - Allexinno &amp; Starchild - Joanna Remix_YkPi2_MaUiE.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>327.68000000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{3d3a65a1-031b-4c59-8437-81111f3faeea}</destination>
+		</relationship>
+	</object>
+</objects>
