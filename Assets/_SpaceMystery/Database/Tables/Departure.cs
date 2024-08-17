@@ -1,6 +1,6 @@
 public class Departure
 {
-    public int spacecraftName { get; set; }
+    public string spacecraftName { get; set; }
     
     public string departureStationId { get; set; }
     
