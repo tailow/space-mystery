@@ -8,6 +8,7 @@ public class CommandProcessor
     {
         commands.Add("help", new HelpCommand());
         commands.Add("exit", new ExitCommand());
+        commands.Add("search", new SearchCommand());
     }
 
     public string ProcessCommand(string input)

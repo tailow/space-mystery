@@ -24,10 +24,12 @@ public class Terminal : MonoBehaviour
 
     private void OnInputSubmit(string input)
     {
+        _inputField.ActivateInputField();
+        
+        if (_inputField.wasCanceled) return;
         if (string.IsNullOrWhiteSpace(input)) return;
 
         _inputField.text = "";
-        _inputField.ActivateInputField();
 
         DisplayOutput("> " + input);
         
@@ -36,7 +38,7 @@ public class Terminal : MonoBehaviour
         DisplayOutput(output);
     }
 
-    public void DisplayOutput(string output)
+    private void DisplayOutput(string output)
     {
         _outputText.text += output + "\n";
     }
