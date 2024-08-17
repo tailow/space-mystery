@@ -10,7 +10,7 @@ public class SearchCommand : Command
         
         string queryOutput = "";
         
-        switch (args[1])
+        switch (args[1].ToLower())
         {
             case "spacecraft":
                 IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft();
@@ -46,7 +46,8 @@ public class SearchCommand : Command
                 
                 foreach (Arrival arrival in arrivalData)
                 {
-                    queryOutput += $"{arrival.spacecraftName} : {arrival.stationId} : {arrival.arrivalTime} : {arrival.reservationTime} : {arrival.statusCode} : {arrival.notes}\n" +
+                    queryOutput += $"{arrival.spacecraftName} : {arrival.stationId} : {arrival.arrivalTime} : {arrival.reservationTime} :" +
+                                   $" {arrival.statusCode} : {arrival.notes}\n" +
                                    "------------------------------------------------\n";
                 }
                 
@@ -59,7 +60,22 @@ public class SearchCommand : Command
                 
                 foreach (Departure departure in departureData)
                 {
-                    queryOutput += $"{departure.spacecraftName} : {departure.departureStationId} : {departure.destinationStationId} : {departure.destinationDistance} : {departure.departureTime} : {departure.statusCode} : {departure.notes}\n" +
+                    queryOutput += $"{departure.spacecraftName} : {departure.departureStationId} : {departure.destinationStationId} :" +
+                                   $" {departure.destinationDistance} : {departure.departureTime} : {departure.statusCode} : {departure.notes}\n" +
+                                   "------------------------------------------------\n";
+                }
+                
+                break;
+            case "cargo":
+                IEnumerable<CargoTransfer> cargoTransferData = dataService.GetCargoTransfers();
+                
+                queryOutput += "IDENTIFIER : STATION : SOURCE : DESTINATION : CONTENT : WEIGHT : TIME : NOTES\n" +
+                               "------------------------------------------------\n";
+                
+                foreach (CargoTransfer cargoTransfer in cargoTransferData)
+                {
+                    queryOutput += $"{cargoTransfer.cargoId} : {cargoTransfer.stationId} : {cargoTransfer.startSpacecraftName} : {cargoTransfer.destinationSpacecraftName} : " +
+                                   $"{cargoTransfer.cargoContent} : {cargoTransfer.cargoWeight} : {cargoTransfer.transferTime} : {cargoTransfer.notes}\n" +
                                    "------------------------------------------------\n";
                 }
                 

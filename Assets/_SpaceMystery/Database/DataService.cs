@@ -36,11 +36,23 @@ public class DataService
 
     public IEnumerable<Departure> GetDepartures()
     {
-        return _connection.Query<Departure>("SELECT s.name AS spacecraftName, d.departureStationId, d.destinationStationId, d.destinationDistance, d.departureTime, sc.name AS statusCode, d.notes" +
+        return _connection.Query<Departure>("SELECT s.name AS spacecraftName, d.departureStationId, d.destinationStationId, " +
+                                            "d.destinationDistance, d.departureTime, sc.name AS statusCode, d.notes" +
                                           " FROM Departure d" +
                                           " INNER JOIN Spacecraft s" +
                                           " ON s.id = d.spacecraftId" +
                                           " INNER JOIN StatusCode sc" +
                                           " ON sc.id = d.statusCode");
+    }
+
+    public IEnumerable<CargoTransfer> GetCargoTransfers()
+    {
+        return _connection.Query<CargoTransfer>("SELECT ct.cargoId, ct.stationId, s1.name AS startSpacecraftName, s2.name AS destinationSpacecraftName," +
+                                                " ct.cargoContent, ct.cargoWeight, ct.transferTime, ct.notes" +
+                                                " FROM CargoTransfer ct" +
+                                                " INNER JOIN Spacecraft s1" +
+                                                " ON ct.startSpacecraftId = s1.id" +
+                                                " INNER JOIN Spacecraft s2" +
+                                                " ON ct.destinationSpacecraftId = s2.id");
     }
 }
