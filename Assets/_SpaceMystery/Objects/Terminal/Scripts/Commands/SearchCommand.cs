@@ -13,12 +13,12 @@ public class SearchCommand : Command
         switch (args[1])
         {
             case "spacecraft":
-                IEnumerable<SpacecraftQuery> spacecraftData = dataService.GetSpacecraftData();
+                IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft();
 
                 queryOutput += "NAME : OWNER : MAX FUEL : TYPE\n" +
                                "------------------------------------------------\n";
                 
-                foreach (SpacecraftQuery spacecraft in spacecraftData)
+                foreach (Spacecraft spacecraft in spacecraftData)
                 {
                     queryOutput += $"{spacecraft.name} : {spacecraft.owner} : {spacecraft.maxFuel} : {spacecraft.type}\n" +
                                    "------------------------------------------------\n";

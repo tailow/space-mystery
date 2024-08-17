@@ -1,15 +1,14 @@
-using SQLite4Unity3d;
-
 public class Arrival
 {
-    [NotNull, PrimaryKey, Unique, AutoIncrement]
-    public int id { get; set; }
+    public string spacecraftName { get; set; }
     
-    [NotNull]
-    public int spacecraftId { get; set; }
-    
-    [NotNull]
     public string stationId { get; set; }
     
-    public int time { get; set; }    
+    public int arrivalTime { get; set; }
+
+    public int reservationTime { get; set; }
+    
+    public string statusCode { get; set; }
+    
+    public string notes { get; set; }
 }
