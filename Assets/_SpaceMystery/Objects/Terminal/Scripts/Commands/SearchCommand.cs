@@ -81,7 +81,7 @@ public class SearchCommand : Command
                 
                 break;
             default:
-                queryOutput = "Invalid table";
+                queryOutput = "Invalid table. Available tables are: arrivals, departures, cargo, spacecraft, stations";
                 break;
         }
         
