@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SearchCommand : Command
 {
@@ -13,7 +15,7 @@ public class SearchCommand : Command
         switch (args[1].ToLower())
         {
             case "spacecraft":
-                IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft();
+                IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft(args.Skip(2).ToArray());
 
                 queryOutput += "NAME : OWNER : MAX FUEL : TYPE\n" +
                                "------------------------------------------------\n";
@@ -26,7 +28,7 @@ public class SearchCommand : Command
                 
                 break;
             case "stations":
-                IEnumerable<Station> stationData = dataService.GetStations();
+                IEnumerable<Station> stationData = dataService.GetStations(args.Skip(2).ToArray());
                 
                 queryOutput += "IDENTIFIER : NAME : NOTES\n" +
                                "------------------------------------------------\n";
@@ -39,7 +41,7 @@ public class SearchCommand : Command
                 
                 break;
             case "arrivals":
-                IEnumerable<Arrival> arrivalData = dataService.GetArrivals();
+                IEnumerable<Arrival> arrivalData = dataService.GetArrivals(args.Skip(2).ToArray());
                 
                 queryOutput += "SPACECRAFT : STATION : TIME : RESERVATION TIME : STATUS : NOTES\n" +
                                "------------------------------------------------\n";
@@ -53,7 +55,7 @@ public class SearchCommand : Command
                 
                 break;
             case "departures":
-                IEnumerable<Departure> departureData = dataService.GetDepartures();
+                IEnumerable<Departure> departureData = dataService.GetDepartures(args.Skip(2).ToArray());
                 
                 queryOutput += "SPACECRAFT : STATION : DESTINATION : DISTANCE : TIME : STATUS : NOTES\n" +
                                "------------------------------------------------\n";
@@ -67,7 +69,7 @@ public class SearchCommand : Command
                 
                 break;
             case "cargo":
-                IEnumerable<CargoTransfer> cargoTransferData = dataService.GetCargoTransfers();
+                IEnumerable<CargoTransfer> cargoTransferData = dataService.GetCargoTransfers(args.Skip(2).ToArray());
                 
                 queryOutput += "IDENTIFIER : STATION : SOURCE : DESTINATION : CONTENT : WEIGHT : TIME : NOTES\n" +
                                "------------------------------------------------\n";
