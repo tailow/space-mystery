@@ -94,7 +94,7 @@ public class DataService
             {"type", "st.name"},
             {"maxfuel", "maxFuel"},
             {"maxload", "maxLoad"},
-            {"cruisespeed", "cruiseSpeed"}
+            {"speed", "cruiseSpeed"}
         };
 
         query += ConvertArgsToSQL(args, columnMapping);
@@ -132,7 +132,7 @@ public class DataService
             {"spacecraft", "s.name"},
             {"station", "stationId"},
             {"time", "arrivalTime"},
-            {"reservationtime", "reservationTime"},
+            {"reservation", "reservationTime"},
             {"status", "sc.name"}
         };
         

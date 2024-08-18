@@ -4,6 +4,8 @@ public class AlertCommand : Command
 {
     public override string Execute(string[] args)
     {
+        DatabaseResults.Instance.HideResults();
+        
         string spacecraftName = args[1];
         string stationId = args[2];
 

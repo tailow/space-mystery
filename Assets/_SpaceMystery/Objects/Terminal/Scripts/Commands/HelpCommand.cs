@@ -2,6 +2,8 @@ public class HelpCommand : Command
 {
     public override string Execute(string[] args)
     {
+        DatabaseResults.Instance.HideResults();
+        
         return "Available commands:\n" +
                "    * help\n" +
                "        - Shows all available commands\n" +
