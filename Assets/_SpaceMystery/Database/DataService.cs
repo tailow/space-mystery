@@ -13,29 +13,91 @@ public class DataService
         _connection = new SQLiteConnection(_databasePath, SQLiteOpenFlags.ReadOnly);
     }
 
-    public IEnumerable<Spacecraft> GetSpacecraft(string[] args)
+    private string ConvertArgsToSQL(string[] args, Dictionary<string, string> columnMappings)
     {
-        string query =
-            "SELECT Spacecraft.name, Spacecraft.owner, SpacecraftType.name AS type, SpacecraftType.maxFuel " +
-            "FROM Spacecraft " +
-            "INNER JOIN SpacecraftType ON Spacecraft.typeId = SpacecraftType.id";
+        string query = "";
         
         bool isFirstArg = true;
         
         foreach (string arg in args)
         {
-            if (isFirstArg)
+            string columnName = "";
+            string comparisonValue = "";
+            string operatorCharacter = "";
+            
+            if (arg.Contains('<'))
             {
-                query += $" WHERE {arg}";
+                operatorCharacter = "<";
+                columnName = arg.Split('<')[0];
+                comparisonValue = arg.Split('<')[1];
+            }
+            else if (arg.Contains('>'))
+            {
+                operatorCharacter = ">";
+                columnName = arg.Split('>')[0];
+                comparisonValue = arg.Split('>')[1];
+            }
+            else if (arg.Contains('='))
+            {
+                operatorCharacter = "=";
+                columnName = arg.Split('=')[0];
+                comparisonValue = arg.Split('=')[1];
+            }
+            else
+            {
+                Debug.Log("Option must contain an operator");
+            }
 
-                isFirstArg = false;
+            if (columnMappings.ContainsKey(columnName.ToLower()))
+            {
+                if (isFirstArg)
+                {
+                    query += " WHERE ";
+
+                    isFirstArg = false;
+                }
+                else
+                {
+                    query += " AND ";
+                }
+
+                if (int.TryParse(comparisonValue, out int i))
+                {
+                    query += $"{columnMappings[columnName]}{operatorCharacter}{comparisonValue}";
+                }
+                else
+                {
+                    query += $"{columnMappings[columnName]}{operatorCharacter}'{comparisonValue}'";
+                }
             }
 
             else
             {
-                query += $" AND {arg}";
+                Debug.Log("Invalid column");
             }
         }
+
+        return query;
+    }
+
+    public IEnumerable<Spacecraft> GetSpacecraft(string[] args)
+    {
+        string query =
+            "SELECT sc.name, sc.owner, st.name AS type, st.maxFuel, st.maxLoad, st.cruiseSpeed, sc.notes" +
+            " FROM Spacecraft sc" +
+            " INNER JOIN SpacecraftType st " +
+            " ON sc.typeId = st.id";
+        
+        Dictionary<string, string> columnMapping = new Dictionary<string, string>()
+        {
+            {"name", "sc.name"},
+            {"type", "st.name"},
+            {"maxfuel", "maxFuel"},
+            {"maxload", "maxLoad"},
+            {"cruisespeed", "cruiseSpeed"}
+        };
+
+        query += ConvertArgsToSQL(args, columnMapping);
         
         return _connection.Query<Spacecraft>(query);
     }
@@ -44,22 +106,13 @@ public class DataService
     {
         string query = "SELECT id, name, notes FROM Station";
 
-        bool isFirstArg = true;
-        
-        foreach (string arg in args)
+        Dictionary<string, string> columnMapping = new Dictionary<string, string>()
         {
-            if (isFirstArg)
-            {
-                query += $" WHERE {arg}";
+            {"id", "id"},
+            {"name", "name"},
+        };
 
-                isFirstArg = false;
-            }
-
-            else
-            {
-                query += $" AND {arg}";
-            }
-        }
+        query += ConvertArgsToSQL(args, columnMapping);
         
         return _connection.Query<Station>(query);
     }
@@ -74,22 +127,16 @@ public class DataService
             " INNER JOIN StatusCode sc" +
             " ON sc.id = a.statusCode";
         
-        bool isFirstArg = true;
-        
-        foreach (string arg in args)
+        Dictionary<string, string> columnMapping = new Dictionary<string, string>()
         {
-            if (isFirstArg)
-            {
-                query += $" WHERE {arg}";
-
-                isFirstArg = false;
-            }
-
-            else
-            {
-                query += $" AND {arg}";
-            }
-        }
+            {"spacecraft", "s.name"},
+            {"station", "stationId"},
+            {"time", "arrivalTime"},
+            {"reservationtime", "reservationTime"},
+            {"status", "sc.name"}
+        };
+        
+        query += ConvertArgsToSQL(args, columnMapping);
         
         return _connection.Query<Arrival>(query);
     }
@@ -104,22 +151,17 @@ public class DataService
                        " INNER JOIN StatusCode sc" +
                        " ON sc.id = d.statusCode";
         
-        bool isFirstArg = true;
-        
-        foreach (string arg in args)
+        Dictionary<string, string> columnMapping = new Dictionary<string, string>()
         {
-            if (isFirstArg)
-            {
-                query += $" WHERE {arg}";
-
-                isFirstArg = false;
-            }
-
-            else
-            {
-                query += $" AND {arg}";
-            }
-        }
+            {"spacecraft", "s.name"},
+            {"station", "departureStationId"},
+            {"destination", "destinationStationId"},
+            {"distance", "destinationDistance"},
+            {"time", "departureTime"},
+            {"status", "sc.name"}
+        };
+        
+        query += ConvertArgsToSQL(args, columnMapping);
         
         return _connection.Query<Departure>(query);
     }
@@ -135,22 +177,18 @@ public class DataService
             " INNER JOIN Spacecraft s2" +
             " ON ct.destinationSpacecraftId = s2.id";
         
-        bool isFirstArg = true;
-        
-        foreach (string arg in args)
+        Dictionary<string, string> columnMapping = new Dictionary<string, string>()
         {
-            if (isFirstArg)
-            {
-                query += $" WHERE {arg}";
-
-                isFirstArg = false;
-            }
-
-            else
-            {
-                query += $" AND {arg}";
-            }
-        }
+            {"id", "cargoId"},
+            {"station", "stationId"},
+            {"source", "s1.name"},
+            {"destination", "s2.name"},
+            {"content", "cargoContent"},
+            {"weight", "cargoWeight"},
+            {"time", "transferTime"}
+        };
+        
+        query += ConvertArgsToSQL(args, columnMapping);
         
         return _connection.Query<CargoTransfer>(query);
     }

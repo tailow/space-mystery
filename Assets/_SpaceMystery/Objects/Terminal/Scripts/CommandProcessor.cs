@@ -15,8 +15,8 @@ public class CommandProcessor
 
     public string ProcessCommand(string input)
     {
-        string[] splitInput = input.ToLower().Split(' ');
-        string commandName = splitInput[0];
+        string[] splitInput = input.Split(' ');
+        string commandName = splitInput[0].ToLower();
 
         if (commands.TryGetValue(commandName, out Command command))
         {

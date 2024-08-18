@@ -17,12 +17,13 @@ public class SearchCommand : Command
             case "spacecraft":
                 IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft(args.Skip(2).ToArray());
 
-                queryOutput += "NAME : OWNER : MAX FUEL : TYPE\n" +
+                queryOutput += "NAME : OWNER : TYPE : MAXFUEL : MAXLOAD : CRUISESPEED : NOTES\n" +
                                "------------------------------------------------\n";
                 
                 foreach (Spacecraft spacecraft in spacecraftData)
                 {
-                    queryOutput += $"{spacecraft.name} : {spacecraft.owner} : {spacecraft.maxFuel} : {spacecraft.type}\n" +
+                    queryOutput += $"{spacecraft.name} : {spacecraft.owner} : {spacecraft.type} : {spacecraft.maxFuel} :" +
+                                   $" {spacecraft.maxLoad} : {spacecraft.cruiseSpeed} : {spacecraft.notes}\n" +
                                    "------------------------------------------------\n";
                 }
                 
@@ -30,7 +31,7 @@ public class SearchCommand : Command
             case "stations":
                 IEnumerable<Station> stationData = dataService.GetStations(args.Skip(2).ToArray());
                 
-                queryOutput += "IDENTIFIER : NAME : NOTES\n" +
+                queryOutput += "ID : NAME : NOTES\n" +
                                "------------------------------------------------\n";
                 
                 foreach (Station station in stationData)
@@ -71,7 +72,7 @@ public class SearchCommand : Command
             case "cargo":
                 IEnumerable<CargoTransfer> cargoTransferData = dataService.GetCargoTransfers(args.Skip(2).ToArray());
                 
-                queryOutput += "IDENTIFIER : STATION : SOURCE : DESTINATION : CONTENT : WEIGHT : TIME : NOTES\n" +
+                queryOutput += "ID : STATION : SOURCE : DESTINATION : CONTENT : WEIGHT : TIME : NOTES\n" +
                                "------------------------------------------------\n";
                 
                 foreach (CargoTransfer cargoTransfer in cargoTransferData)
