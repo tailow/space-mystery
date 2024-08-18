@@ -10,6 +10,7 @@ public class CommandProcessor
         commands.Add("exit", new ExitCommand());
         commands.Add("quit", new ExitCommand());
         commands.Add("search", new SearchCommand());
+        commands.Add("alert", new AlertCommand());
     }
 
     public string ProcessCommand(string input)
