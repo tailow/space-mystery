@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class Terminal : MonoBehaviour
+public class Terminal : Singleton<Terminal>
 {
     [SerializeField] private TMP_InputField _inputField;
     [SerializeField] private TMP_Text _outputText;
@@ -44,7 +44,7 @@ public class Terminal : MonoBehaviour
         DisplayOutput(output);
     }
 
-    private void DisplayOutput(string output)
+    public void DisplayOutput(string output)
     {
         _outputText.text += output + "\n";
     }

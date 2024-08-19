@@ -6,6 +6,8 @@ public class ResultRow : MonoBehaviour
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color defaultColor;
 
+    public string[] Values;
+
     private void Start()
     {
         foreach (Transform column in transform)

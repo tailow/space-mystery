@@ -6,7 +6,7 @@ public class SearchCommand : Command
 {
     public override string Execute(string[] args)
     {
-        if (args.Length <= 1) return "Please input the table to be searched.";
+        if (args.Length <= 1) return "Please input the table to be searched. Available tables are: arrivals, departures, cargo, spacecraft, stations";
         
         DataService dataService = new DataService();
         

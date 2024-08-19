@@ -17,6 +17,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     [SerializeField] private TMP_Text resultsCountText;
 
     private List<ResultRow> resultRows = new List<ResultRow>();
+    private TitleRow activeTitleRow;
     
     private int selectedRowIndex = -1;
     private int maxDisplayedRows = 18;
@@ -61,6 +62,23 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             previousSelectionTime = Time.time;
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (selectedRowIndex >= 0)
+            {
+                string rowOutput = "";
+
+                for (int i = 0; i < activeTitleRow.Titles.Length; i++)
+                {
+                    rowOutput += $"{activeTitleRow.Titles[i]}: {resultRows[selectedRowIndex].Values[i]}\n";
+                }
+                
+                Terminal.Instance.DisplayOutput(rowOutput);
+                
+                HideResults();
+            }
+        }
     }
     
     private void DeleteResults()
@@ -77,6 +95,8 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
     public void HideResults()
     {
+        DeleteResults();
+        
         databaseResults.transform.parent.gameObject.SetActive(false);
     }
     
@@ -199,11 +219,17 @@ public class DatabaseResults : Singleton<DatabaseResults>
     
     private void InstantiateTitleRow(string[] titles)
     {
-        GameObject titleRow = Instantiate(titleRowPrefab, databaseResults.transform);
+        GameObject titleRowObject = Instantiate(titleRowPrefab, databaseResults.transform);
+
+        TitleRow titleRow = titleRowObject.GetComponent<TitleRow>();
+
+        titleRow.Titles = titles;
+
+        activeTitleRow = titleRow;
         
         foreach (string title in titles)
         {
-            GameObject titleColumn = Instantiate(titleColumnPrefab, titleRow.transform);
+            GameObject titleColumn = Instantiate(titleColumnPrefab, titleRowObject.transform);
 
             titleColumn.GetComponentInChildren<TMP_Text>().text = title;
         }
@@ -212,8 +238,12 @@ public class DatabaseResults : Singleton<DatabaseResults>
     private void InstantiateResultRow(string[] results)
     {
         GameObject resultRowObject = Instantiate(resultRowPrefab, databaseResults.transform);
+
+        ResultRow resultRow = resultRowObject.GetComponent<ResultRow>();
+
+        resultRow.Values = results;
         
-        resultRows.Add(resultRowObject.GetComponent<ResultRow>());
+        resultRows.Add(resultRow);
         
         foreach (string result in results)
         {
