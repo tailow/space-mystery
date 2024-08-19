@@ -12,6 +12,9 @@ public class DatabaseResults : Singleton<DatabaseResults>
     [SerializeField] private GameObject resultRowPrefab;
     [SerializeField] private GameObject resultColumnPrefab;
 
+    [SerializeField] private TMP_Text resultsTitleText;
+    [SerializeField] private TMP_Text resultsCountText;
+
     private void DeleteResults()
     {
         foreach (Transform child in databaseResults.transform)
@@ -22,14 +25,14 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
     public void HideResults()
     {
-        databaseResults.SetActive(false);
+        databaseResults.transform.parent.gameObject.SetActive(false);
     }
     
     public void ShowStationResults(IEnumerable<Station> stationData)
     {
         DeleteResults();
         
-        databaseResults.SetActive(true);
+        databaseResults.transform.parent.gameObject.SetActive(true);
         
         string[] stationTitles = new[] { "ID", "NAME", "NOTES" };
         
@@ -41,13 +44,16 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             InstantiateResultRow(stationResults);
         }
+
+        resultsTitleText.text = "Stations";
+        resultsCountText.text = $"Query results: {stationData.Count()}";
     }
     
     public void ShowSpacecraftResults(IEnumerable<Spacecraft> spacecraftData)
     {
         DeleteResults();
         
-        databaseResults.SetActive(true);
+        databaseResults.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "NAME", "TYPE", "MAXFUEL", "MAXLOAD", "SPEED", "NOTES" };
         
@@ -60,13 +66,16 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             InstantiateResultRow(results);
         }
+        
+        resultsTitleText.text = "Spacecraft";
+        resultsCountText.text = $"Query results: {spacecraftData.Count()}";
     }
     
     public void ShowArrivalResults(IEnumerable<Arrival> arrivalData)
     {
         DeleteResults();
         
-        databaseResults.SetActive(true);
+        databaseResults.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "SPACECRAFT", "STATION", "TIME", "RESERVATION", "STATUS", "NOTES" };
         
@@ -79,13 +88,16 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             InstantiateResultRow(results);
         }
+        
+        resultsTitleText.text = "Arrivals";
+        resultsCountText.text = $"Query results: {arrivalData.Count()}";
     }
     
     public void ShowDepartureResults(IEnumerable<Departure> departureData)
     {
         DeleteResults();
         
-        databaseResults.SetActive(true);
+        databaseResults.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "SPACECRAFT", "STATION", "DESTINATION", "DISTANCE", "TIME", "STATUS", "NOTES" };
         
@@ -102,13 +114,16 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             InstantiateResultRow(results);
         }
+        
+        resultsTitleText.text = "Departures";
+        resultsCountText.text = $"Query results: {departureData.Count()}";
     }
     
     public void ShowCargoResults(IEnumerable<CargoTransfer> cargoTransferData)
     {
         DeleteResults();
         
-        databaseResults.SetActive(true);
+        databaseResults.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "ID", "STATION", "SOURCE", "DESTINATION", "CONTENT", "WEIGHT", "TIME", "NOTES" };
         
@@ -125,6 +140,9 @@ public class DatabaseResults : Singleton<DatabaseResults>
             
             InstantiateResultRow(results);
         }
+        
+        resultsTitleText.text = "Cargo transfers";
+        resultsCountText.text = $"Query results: {cargoTransferData.Count()}";
     }
     
     private void InstantiateTitleRow(string[] titles)
