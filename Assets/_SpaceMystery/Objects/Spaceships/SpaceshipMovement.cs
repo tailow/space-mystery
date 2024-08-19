@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class SpaceshipMovement : MonoBehaviour
 {
-    [SerializeField] private Vector3 startPosition;
-
     [SerializeField] private float speed;
 
     [SerializeField] private float resetAfterSeconds = 180;
+
+    private Vector3 startPosition;
 
     private float lastReset;
 
     private void Start()
     {
-        transform.position = startPosition;
+        startPosition = transform.position;
     }
 
     private void Update()
