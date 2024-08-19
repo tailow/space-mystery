@@ -6,7 +6,11 @@ public class DataService
 {
     private SQLiteConnection _connection;
     
-    readonly string _databasePath = "Assets/StreamingAssets/database.db";
+    #if UNITY_EDITOR
+        readonly string _databasePath = "Assets/StreamingAssets/database.db";
+    #else
+        readonly string _databasePath = string.Format("{0}/StreamingAssets/database.db", Application.dataPath);
+    #endif
 
     public DataService()
     {

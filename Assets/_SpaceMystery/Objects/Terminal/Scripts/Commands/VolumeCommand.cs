@@ -17,7 +17,7 @@ public class VolumeCommand : Command
 
         else
         {
-            return "You must provide a volume number between 0-100.";
+            return "You must provide a volume number between 0 and 100.";
         }
     }
 }

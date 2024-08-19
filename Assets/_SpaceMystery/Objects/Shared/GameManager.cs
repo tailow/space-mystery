@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -7,7 +8,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        SetVolume(50);
+        SetVolume(PlayerPrefs.GetInt("volume", 50));
     }
 
     public void EndGame()
@@ -22,5 +23,7 @@ public class GameManager : Singleton<GameManager>
         FMOD.Studio.Bus master = FMODUnity.RuntimeManager.GetBus("bus:/");
 
         master.setVolume(volume / 100f);
+        
+        PlayerPrefs.SetInt("volume", volume);
     }
 }
