@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +21,11 @@ public class Terminal : MonoBehaviour
         
         _inputField.ActivateInputField();
         _inputField.onEndEdit.AddListener(OnInputSubmit);
+        
+        DisplayOutput("Welcome to KarhuOS 1.0\n");
+        DisplayOutput(new TimeCommand().Execute(Array.Empty<string>()));
+        DisplayOutput("No updates are available.\n" +
+                      "You have 1 unread message. Read it by typing 'messages'.\n");
     }
 
     private void OnInputSubmit(string input)

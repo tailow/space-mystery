@@ -11,6 +11,8 @@ public class CommandProcessor
         commands.Add("quit", new ExitCommand());
         commands.Add("search", new SearchCommand());
         commands.Add("alert", new AlertCommand());
+        commands.Add("time", new TimeCommand());
+        commands.Add("messages", new MessagesCommand());
     }
 
     public string ProcessCommand(string input)

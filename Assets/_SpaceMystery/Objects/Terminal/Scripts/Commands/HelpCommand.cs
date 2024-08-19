@@ -15,6 +15,8 @@ public class HelpCommand : Command
                "        - Example: search arrivals time>46 time<58 station=EFKU\n" +
                "    * alert (spacecraft) (destination station)\n" +
                "        - Alerts the officials to a potential threat\n" +
-               "        - Example: alert ARX-120 EFKU\n";
+               "        - Example: alert ARX-120 EFKU\n" +
+               "    * time\n" +
+               "        - Shows the current time";
     }
 }
