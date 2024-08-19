@@ -9,14 +9,14 @@ public class AlertCommand : Command
         string spacecraftName = args[1];
         string stationId = args[2];
 
-        if (spacecraftName != GameManager.Instance.TerroristSpacecraftName.ToLower())
+        if (spacecraftName.ToLower() != GameManager.Instance.TerroristSpacecraftName.ToLower())
         {
             Debug.Log(spacecraftName);
             
             return "There doesn't seem to be anything suspicious regarding that spacecraft.";
         }
         
-        else if (stationId != GameManager.Instance.TerroristDestinationStation.ToLower())
+        else if (stationId.ToLower() != GameManager.Instance.TerroristDestinationStation.ToLower())
         {
             return "There doesn't seem to be any suspicious spacecraft entering that station.";
         }

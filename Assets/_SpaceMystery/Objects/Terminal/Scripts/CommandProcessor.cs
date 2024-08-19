@@ -13,6 +13,7 @@ public class CommandProcessor
         commands.Add("alert", new AlertCommand());
         commands.Add("time", new TimeCommand());
         commands.Add("messages", new MessagesCommand());
+        commands.Add("back", new BackCommand());
     }
 
     public string ProcessCommand(string input)

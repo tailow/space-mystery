@@ -19,6 +19,8 @@ public class HelpCommand : Command
                "    * time\n" +
                "        - Shows the current time\n" +
                "    * messages\n" +
-               "        - Shows latest messages\n";
+               "        - Shows latest messages\n" +
+               "    * back\n" +
+               "        - Closes the database display";
     }
 }

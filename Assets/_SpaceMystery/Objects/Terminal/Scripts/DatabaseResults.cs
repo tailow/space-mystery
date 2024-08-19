@@ -21,6 +21,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     
     private int selectedRowIndex = -1;
     private int maxDisplayedRows = 18;
+    private int resultLimit = 100;
 
     private float selectionCooldown = 0.1f;
     private float previousSelectionTime;
@@ -110,8 +111,10 @@ public class DatabaseResults : Singleton<DatabaseResults>
         
         InstantiateTitleRow(stationTitles);
 
-        foreach (Station station in stationData)
+        for (int i = 0; i < Math.Min(resultLimit, stationData.Count()); i++)
         {
+            Station station = stationData.ElementAt(i);
+            
             string[] stationResults = new[] { station.id, station.name, station.notes };
             
             InstantiateResultRow(stationResults);
@@ -131,8 +134,10 @@ public class DatabaseResults : Singleton<DatabaseResults>
         
         InstantiateTitleRow(titles);
 
-        foreach (Spacecraft spacecraft in spacecraftData)
+        for (int i = 0; i < Math.Min(resultLimit, spacecraftData.Count()); i++)
         {
+            Spacecraft spacecraft = spacecraftData.ElementAt(i);
+            
             string[] results = new[] { spacecraft.name, spacecraft.type, spacecraft.maxFuel.ToString(),
                                         spacecraft.maxLoad.ToString(), spacecraft.cruiseSpeed.ToString(), spacecraft.notes };
             
@@ -153,8 +158,10 @@ public class DatabaseResults : Singleton<DatabaseResults>
         
         InstantiateTitleRow(titles);
 
-        foreach (Arrival arrival in arrivalData)
+        for (int i = 0; i < Math.Min(resultLimit, arrivalData.Count()); i++)
         {
+            Arrival arrival = arrivalData.ElementAt(i);
+            
             string[] results = new[] { arrival.spacecraftName, arrival.stationId, arrival.arrivalTime.ToString(),
                 arrival.reservationTime.ToString(), arrival.statusCode, arrival.notes };
             
@@ -175,8 +182,10 @@ public class DatabaseResults : Singleton<DatabaseResults>
         
         InstantiateTitleRow(titles);
 
-        foreach (Departure departure in departureData)
+        for (int i = 0; i < Math.Min(resultLimit, departureData.Count()); i++)
         {
+            Departure departure = departureData.ElementAt(i);
+            
             string[] results = new[]
             {
                 departure.spacecraftName, departure.departureStationId, departure.destinationStationId,
@@ -201,8 +210,10 @@ public class DatabaseResults : Singleton<DatabaseResults>
         
         InstantiateTitleRow(titles);
 
-        foreach (CargoTransfer cargoTransfer in cargoTransferData)
+        for (int i = 0; i < Math.Min(resultLimit, cargoTransferData.Count()); i++)
         {
+            CargoTransfer cargoTransfer = cargoTransferData.ElementAt(i);
+            
             string[] results = new[]
             {
                 cargoTransfer.cargoId.ToString(), cargoTransfer.stationId, cargoTransfer.startSpacecraftName,
