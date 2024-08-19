@@ -5,6 +5,6 @@ public class TimeCommand : Command
         DatabaseResults.Instance.HideResults();
         
         return "Earth time: 30/08/2078 12:01\n" +
-               "Universal time: 47815\n";
+               "Universal time: 26\n";
     }
 }
