@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class VolumeCommand : MonoBehaviour
+public class VolumeCommand : Command
 {
-    // Start is called before the first frame update
-    void Start()
+    public override string Execute(string[] args)
     {
-        
-    }
+        DatabaseResults.Instance.HideResults();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (int.TryParse(args[1], out int volume))
+        {
+            // TODO: Set volume
+            volume = Math.Clamp(volume, 0, 100);
+            
+            return $"Set volume to {volume}.";
+        }
+
+        else
+        {
+            return "You must provide a volume number between 0-100.";
+        }
     }
 }

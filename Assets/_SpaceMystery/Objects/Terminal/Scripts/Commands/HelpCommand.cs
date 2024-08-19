@@ -22,6 +22,8 @@ public class HelpCommand : Command
                "        - Shows latest messages\n" +
                "    * back\n" +
                "        - Closes the database display\n" +
-               "    * credits";
+               "    * credits\n" +
+               "    * volume (0-100)\n" +
+               "        - Sets the in-game volume to a value between 0 and 100 (default is 50).";
     }
 }
