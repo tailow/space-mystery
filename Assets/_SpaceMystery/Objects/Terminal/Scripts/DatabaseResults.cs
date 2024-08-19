@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -15,8 +16,59 @@ public class DatabaseResults : Singleton<DatabaseResults>
     [SerializeField] private TMP_Text resultsTitleText;
     [SerializeField] private TMP_Text resultsCountText;
 
+    private List<ResultRow> resultRows = new List<ResultRow>();
+    
+    private int selectedRowIndex = -1;
+    private int maxDisplayedRows = 18;
+
+    private float selectionCooldown = 0.1f;
+    private float previousSelectionTime;
+    
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.DownArrow) && Time.time - previousSelectionTime > selectionCooldown)
+        {
+            if (selectedRowIndex >= 0) resultRows[selectedRowIndex].Deselect();
+            
+            selectedRowIndex++;
+
+            selectedRowIndex = Math.Min(resultRows.Count - 1, selectedRowIndex);
+            
+            resultRows[selectedRowIndex].Select();
+
+            if (selectedRowIndex >= maxDisplayedRows)
+            {
+                for (int i = 0; i < selectedRowIndex - maxDisplayedRows + 1; i++)
+                {
+                    resultRows[i].gameObject.SetActive(false);
+                }
+            }
+
+            previousSelectionTime = Time.time;
+        }
+        
+        else if (Input.GetKey(KeyCode.UpArrow) && Time.time - previousSelectionTime > selectionCooldown)
+        {
+            if (selectedRowIndex >= 0) resultRows[selectedRowIndex].Deselect();
+            
+            selectedRowIndex--;
+
+            selectedRowIndex = Math.Max(0, selectedRowIndex);
+            
+            resultRows[selectedRowIndex].Select();
+            
+            resultRows[selectedRowIndex].gameObject.SetActive(true);
+            
+            previousSelectionTime = Time.time;
+        }
+    }
+    
     private void DeleteResults()
     {
+        resultRows.Clear();
+
+        selectedRowIndex = -1;
+        
         foreach (Transform child in databaseResults.transform)
         {
             Destroy(child.gameObject);
@@ -159,11 +211,13 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
     private void InstantiateResultRow(string[] results)
     {
-        GameObject resultRow = Instantiate(resultRowPrefab, databaseResults.transform);
+        GameObject resultRowObject = Instantiate(resultRowPrefab, databaseResults.transform);
+        
+        resultRows.Add(resultRowObject.GetComponent<ResultRow>());
         
         foreach (string result in results)
         {
-            GameObject resultColumn = Instantiate(resultColumnPrefab, resultRow.transform);
+            GameObject resultColumn = Instantiate(resultColumnPrefab, resultRowObject.transform);
 
             resultColumn.GetComponentInChildren<TMP_Text>().text = result;
         }
