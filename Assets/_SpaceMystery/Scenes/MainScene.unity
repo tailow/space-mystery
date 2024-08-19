@@ -1762,7 +1762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  resetAfterSeconds: 1000
+  resetAfterSeconds: 800
 --- !u!4 &803269820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f24986c5005449f4e96046f5edb103a7,
