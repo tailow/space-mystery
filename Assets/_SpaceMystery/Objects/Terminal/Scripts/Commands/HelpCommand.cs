@@ -17,6 +17,8 @@ public class HelpCommand : Command
                "        - Alerts the officials to a potential threat\n" +
                "        - Example: alert ARX-120 EFKU\n" +
                "    * time\n" +
-               "        - Shows the current time";
+               "        - Shows the current time\n" +
+               "    * messages\n" +
+               "        - Shows latest messages\n";
     }
 }
