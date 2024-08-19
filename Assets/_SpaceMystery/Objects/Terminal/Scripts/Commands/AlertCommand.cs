@@ -16,15 +16,14 @@ public class AlertCommand : Command
             return "There doesn't seem to be anything suspicious regarding that spacecraft.";
         }
         
-        else if (stationId.ToLower() != GameManager.Instance.TerroristDestinationStation.ToLower())
+        if (stationId.ToLower() != GameManager.Instance.TerroristDestinationStation.ToLower())
         {
             return "There doesn't seem to be any suspicious spacecraft entering that station.";
         }
         
-        else
-        {
-            // WIN
-            return "That information seems correct. We'll get back to you once we have investigated that spacecraft.";
-        }
+        // WIN
+        GameManager.Instance.EndGame();
+            
+        return "";
     }
 }

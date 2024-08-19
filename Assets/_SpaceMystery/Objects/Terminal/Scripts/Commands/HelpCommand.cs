@@ -21,6 +21,7 @@ public class HelpCommand : Command
                "    * messages\n" +
                "        - Shows latest messages\n" +
                "    * back\n" +
-               "        - Closes the database display";
+               "        - Closes the database display\n" +
+               "    * credits";
     }
 }

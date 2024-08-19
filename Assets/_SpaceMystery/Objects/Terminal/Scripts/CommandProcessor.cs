@@ -14,6 +14,7 @@ public class CommandProcessor
         commands.Add("time", new TimeCommand());
         commands.Add("messages", new MessagesCommand());
         commands.Add("back", new BackCommand());
+        commands.Add("credits", new CreditsCommand());
     }
 
     public string ProcessCommand(string input)
