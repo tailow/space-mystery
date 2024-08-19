@@ -8,8 +8,9 @@ public class VolumeCommand : Command
 
         if (int.TryParse(args[1], out int volume))
         {
-            // TODO: Set volume
             volume = Math.Clamp(volume, 0, 100);
+            
+            GameManager.Instance.SetVolume(volume);
             
             return $"Set volume to {volume}.";
         }
