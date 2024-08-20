@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{10c73c8a-f5e1-43ab-a8b6-32ef21b467c2}">
+		<property name="assetPath">
+			<value>194799__jim-ph__keyboard5.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.40000000000000002</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{3d3a65a1-031b-4c59-8437-81111f3faeea}</destination>
+		</relationship>
+	</object>
+</objects>

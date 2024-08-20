@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{5e452b5e-d8bf-48c0-8a67-73b05f00f581}">
+		<property name="assetPath">
+			<value>194797__jim-ph__vintage-keyboard-3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.31598639455782312</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{3d3a65a1-031b-4c59-8437-81111f3faeea}</destination>
+		</relationship>
+	</object>
+</objects>

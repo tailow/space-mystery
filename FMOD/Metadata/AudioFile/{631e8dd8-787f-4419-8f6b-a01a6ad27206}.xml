@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{d124b6b2-caed-4a3f-8ca8-3e8014311634}">
+	<object class="AudioFile" id="{631e8dd8-787f-4419-8f6b-a01a6ad27206}">
 		<property name="assetPath">
 			<value>Ambient.wav</value>
 		</property>
