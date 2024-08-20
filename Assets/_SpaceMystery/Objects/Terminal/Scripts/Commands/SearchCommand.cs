@@ -15,36 +15,48 @@ public class SearchCommand : Command
         switch (args[1].ToLower())
         {
             case "spacecraft":
-                IEnumerable<Spacecraft> spacecraftData = dataService.GetSpacecraft(args.Skip(2).ToArray());
+                Tuple<bool, IEnumerable<Spacecraft>> spacecraftData = dataService.GetSpacecraft(args.Skip(2).ToArray());
 
-                DatabaseResults.Instance.ShowSpacecraftResults(spacecraftData);
+                if (!spacecraftData.Item1) break;
+
+                DatabaseResults.Instance.ShowSpacecraftResults(spacecraftData.Item2);
                 
                 break;
             case "stations":
-                IEnumerable<Station> stationData = dataService.GetStations(args.Skip(2).ToArray());
+                Tuple<bool, IEnumerable<Station>> stationData = dataService.GetStations(args.Skip(2).ToArray());
                 
-                DatabaseResults.Instance.ShowStationResults(stationData);
+                if (!stationData.Item1) break;
+                
+                DatabaseResults.Instance.ShowStationResults(stationData.Item2);
                 
                 break;
             case "arrivals":
-                IEnumerable<Arrival> arrivalData = dataService.GetArrivals(args.Skip(2).ToArray());
+                Tuple<bool, IEnumerable<Arrival>> arrivalData = dataService.GetArrivals(args.Skip(2).ToArray());
                 
-                DatabaseResults.Instance.ShowArrivalResults(arrivalData);
+                if (!arrivalData.Item1) break;
+                
+                DatabaseResults.Instance.ShowArrivalResults(arrivalData.Item2);
                 
                 break;
             case "departures":
-                IEnumerable<Departure> departureData = dataService.GetDepartures(args.Skip(2).ToArray());
+                Tuple<bool, IEnumerable<Departure>> departureData = dataService.GetDepartures(args.Skip(2).ToArray());
                 
-                DatabaseResults.Instance.ShowDepartureResults(departureData);
+                if (!departureData.Item1) break;
+                
+                DatabaseResults.Instance.ShowDepartureResults(departureData.Item2);
                 
                 break;
             case "cargo":
-                IEnumerable<CargoTransfer> cargoTransferData = dataService.GetCargoTransfers(args.Skip(2).ToArray());
+                Tuple<bool, IEnumerable<CargoTransfer>> cargoTransferData = dataService.GetCargoTransfers(args.Skip(2).ToArray());
                 
-                DatabaseResults.Instance.ShowCargoResults(cargoTransferData);
+                if (!cargoTransferData.Item1) break;
+                
+                DatabaseResults.Instance.ShowCargoResults(cargoTransferData.Item2);
                 
                 break;
             default:
+                DatabaseResults.Instance.HideResults();
+                
                 queryOutput = "Invalid table. Available tables are: arrivals, departures, cargo, spacecraft, stations";
                 break;
         }

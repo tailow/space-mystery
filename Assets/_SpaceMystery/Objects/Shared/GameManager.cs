@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
         Terminal.Instance.DisplayOutput("\nThat information seems correct. We'll get back to you once we have investigated that spacecraft.\n");
         
         Terminal.Instance.DisplayOutput(new CreditsCommand().Execute(Array.Empty<string>()));
+        
+        Terminal.Instance.DisplayOutput("\nCongratulations for completing the game! Feedback is greatly appreciated.");
     }
 
     public void SetVolume(int volume)

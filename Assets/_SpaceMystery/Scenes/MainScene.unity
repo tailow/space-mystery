@@ -1291,7 +1291,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 1
   OverrideMinDistance: 1
-  OverrideMaxDistance: 800
+  OverrideMaxDistance: 1000
 --- !u!1001 &597604555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4463,7 +4463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2a112d6a2845c428580d460d849ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerroristSpacecraftName: Mersu-2574
+  TerroristSpacecraftName: Teka-980
   TerroristDestinationStation: Apex
 --- !u!1 &2043116452
 GameObject:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SQLite4Unity3d;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class DataService
         _connection = new SQLiteConnection(_databasePath, SQLiteOpenFlags.ReadOnly);
     }
 
-    private string ConvertArgsToSQL(string[] args, Dictionary<string, string> columnMappings)
+    private Tuple<bool, string> ConvertArgsToSQL(string[] args, Dictionary<string, string> columnMappings)
     {
         string query = "";
         
@@ -49,7 +50,11 @@ public class DataService
             }
             else
             {
-                Debug.Log("Option must contain an operator");
+                Terminal.Instance.DisplayOutput("The options must contain one of the following operators: <, >, =\n");
+                
+                DatabaseResults.Instance.HideResults();
+
+                return new Tuple<bool, string>(false, "");
             }
 
             if (columnMappings.ContainsKey(columnName.ToLower()))
@@ -77,14 +82,25 @@ public class DataService
 
             else
             {
-                Debug.Log("Invalid column");
+                string columnMappingsText = "";
+
+                foreach (string mapping in columnMappings.Keys)
+                {
+                    columnMappingsText += $"{mapping}, ";
+                }
+                
+                Terminal.Instance.DisplayOutput($"Invalid option column. It must be one of the following columns: {columnMappingsText}\n");
+                
+                DatabaseResults.Instance.HideResults();
+
+                return new Tuple<bool, string>(false, "");
             }
         }
 
-        return query;
+        return new Tuple<bool, string>(true, query);
     }
 
-    public IEnumerable<Spacecraft> GetSpacecraft(string[] args)
+    public Tuple<bool, IEnumerable<Spacecraft>> GetSpacecraft(string[] args)
     {
         string query =
             "SELECT sc.name, sc.owner, st.name AS type, st.maxFuel, st.maxLoad, st.cruiseSpeed, sc.notes" +
@@ -101,12 +117,16 @@ public class DataService
             {"speed", "cruiseSpeed"}
         };
 
-        query += ConvertArgsToSQL(args, columnMapping);
+        Tuple<bool, string> options = ConvertArgsToSQL(args, columnMapping);
         
-        return _connection.Query<Spacecraft>(query);
+        if (!options.Item1) return new Tuple<bool, IEnumerable<Spacecraft>>(false, new Spacecraft[0]);
+        
+        query += options.Item2;
+        
+        return new Tuple<bool, IEnumerable<Spacecraft>>(true, _connection.Query<Spacecraft>(query));
     }
 
-    public IEnumerable<Station> GetStations(string[] args)
+    public Tuple<bool, IEnumerable<Station>> GetStations(string[] args)
     {
         string query = "SELECT id, name, notes FROM Station";
 
@@ -115,13 +135,17 @@ public class DataService
             {"id", "id"},
             {"name", "name"},
         };
-
-        query += ConvertArgsToSQL(args, columnMapping);
         
-        return _connection.Query<Station>(query);
+        Tuple<bool, string> options = ConvertArgsToSQL(args, columnMapping);
+        
+        if (!options.Item1) return new Tuple<bool, IEnumerable<Station>>(false, new Station[0]);
+        
+        query += options.Item2;
+        
+        return new Tuple<bool, IEnumerable<Station>>(true, _connection.Query<Station>(query));
     }
 
-    public IEnumerable<Arrival> GetArrivals(string[] args)
+    public Tuple<bool, IEnumerable<Arrival>> GetArrivals(string[] args)
     {
         string query =
             "SELECT s.name AS spacecraftName, a.stationId, a.arrivalTime, a.reservationTime, sc.name AS statusCode, a.notes" +
@@ -140,12 +164,16 @@ public class DataService
             {"status", "sc.name"}
         };
         
-        query += ConvertArgsToSQL(args, columnMapping);
+        Tuple<bool, string> options = ConvertArgsToSQL(args, columnMapping);
         
-        return _connection.Query<Arrival>(query);
+        if (!options.Item1) return new Tuple<bool, IEnumerable<Arrival>>(false, new Arrival[0]);
+        
+        query += options.Item2;
+        
+        return new Tuple<bool, IEnumerable<Arrival>>(true, _connection.Query<Arrival>(query));
     }
 
-    public IEnumerable<Departure> GetDepartures(string[] args)
+    public Tuple<bool, IEnumerable<Departure>> GetDepartures(string[] args)
     {
         string query = "SELECT s.name AS spacecraftName, d.departureStationId, d.destinationStationId, " +
                        "d.destinationDistance, d.departureTime, sc.name AS statusCode, d.notes" +
@@ -165,12 +193,16 @@ public class DataService
             {"status", "sc.name"}
         };
         
-        query += ConvertArgsToSQL(args, columnMapping);
+        Tuple<bool, string> options = ConvertArgsToSQL(args, columnMapping);
         
-        return _connection.Query<Departure>(query);
+        if (!options.Item1) return new Tuple<bool, IEnumerable<Departure>>(false, new Departure[0]);
+        
+        query += options.Item2;
+        
+        return new Tuple<bool, IEnumerable<Departure>>(true, _connection.Query<Departure>(query));
     }
 
-    public IEnumerable<CargoTransfer> GetCargoTransfers(string[] args)
+    public Tuple<bool, IEnumerable<CargoTransfer>> GetCargoTransfers(string[] args)
     {
         string query =
             "SELECT ct.cargoId, ct.stationId, s1.name AS startSpacecraftName, s2.name AS destinationSpacecraftName," +
@@ -192,8 +224,12 @@ public class DataService
             {"time", "transferTime"}
         };
         
-        query += ConvertArgsToSQL(args, columnMapping);
+        Tuple<bool, string> options = ConvertArgsToSQL(args, columnMapping);
         
-        return _connection.Query<CargoTransfer>(query);
+        if (!options.Item1) return new Tuple<bool, IEnumerable<CargoTransfer>>(false, new CargoTransfer[0]);
+        
+        query += options.Item2;
+        
+        return new Tuple<bool, IEnumerable<CargoTransfer>>(true, _connection.Query<CargoTransfer>(query));
     }
 }
