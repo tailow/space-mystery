@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e2526f0d-01f3-4efd-b6a0-c48e3fa450a7}">
+		<property name="assetPath">
+			<value>232169__gladkiy__drone-engine.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>56.811519274376415</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{3d3a65a1-031b-4c59-8437-81111f3faeea}</destination>
+		</relationship>
+	</object>
+</objects>
