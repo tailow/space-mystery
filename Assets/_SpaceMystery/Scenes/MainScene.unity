@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c5a14caa734074eb4391cd7669b41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  databaseResults: {fileID: 128964532}
+  DatabaseResultsObject: {fileID: 128964532}
   titleRowPrefab: {fileID: 3342716601203325307, guid: 6a817cb9cfb99ca4690c103010be1cf2,
     type: 3}
   titleColumnPrefab: {fileID: 1126485060434258981, guid: 2598dfd34a12c6044a413c82a9b28932,

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using Cursor = UnityEngine.Cursor;
 
 public class Terminal : Singleton<Terminal>
 {
@@ -11,6 +13,10 @@ public class Terminal : Singleton<Terminal>
     private CommandProcessor _commandProcessor;
 
     public UnityEvent OnKeyboardStroke;
+
+    private List<string> previousCommands = new List<string>();
+
+    private int previousCommandIndex;
 
     private void Start()
     {
@@ -37,6 +43,42 @@ public class Terminal : Singleton<Terminal>
         {
             OnKeyboardStroke.Invoke();
         }
+
+        if (!DatabaseResults.Instance.DatabaseResultsObject.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (previousCommands.Count > 0)
+                {
+                    _inputField.text = previousCommands[previousCommandIndex];
+
+                    _inputField.caretPosition = _inputField.text.Length;
+                }
+            
+                if (previousCommands.Count - 1 > previousCommandIndex)
+                {
+                    previousCommandIndex++;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (previousCommandIndex > 0)
+                {
+                    previousCommandIndex--;
+                }
+
+                if (previousCommands.Count > 0)
+                {
+                    _inputField.text = previousCommands[previousCommandIndex];
+                }
+            }
+        }
+    }
+
+    private void ResetPreviousCommandIndex()
+    {
+        previousCommandIndex = 0;
     }
 
     private void OnInputSubmit(string input)
@@ -53,6 +95,10 @@ public class Terminal : Singleton<Terminal>
         string output = _commandProcessor.ProcessCommand(input);
         
         DisplayOutput(output);
+        
+        previousCommands.Insert(0, input);
+        
+        ResetPreviousCommandIndex();
     }
 
     public void DisplayOutput(string output)

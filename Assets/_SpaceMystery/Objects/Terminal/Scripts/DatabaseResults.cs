@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DatabaseResults : Singleton<DatabaseResults>
 {
-    [SerializeField] private GameObject databaseResults;
+    public GameObject DatabaseResultsObject;
     
     [SerializeField] private GameObject titleRowPrefab;
     [SerializeField] private GameObject titleColumnPrefab;
@@ -28,7 +28,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     
     private void Update()
     {
-        if (Input.GetKey(KeyCode.DownArrow) && Time.time - previousSelectionTime > selectionCooldown)
+        if (Input.GetKey(KeyCode.DownArrow) && resultRows.Count > 0 && Time.time - previousSelectionTime > selectionCooldown)
         {
             if (selectedRowIndex >= 0) resultRows[selectedRowIndex].Deselect();
             
@@ -49,7 +49,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
             previousSelectionTime = Time.time;
         }
         
-        else if (Input.GetKey(KeyCode.UpArrow) && Time.time - previousSelectionTime > selectionCooldown)
+        else if (Input.GetKey(KeyCode.UpArrow) && resultRows.Count > 0 && Time.time - previousSelectionTime > selectionCooldown)
         {
             if (selectedRowIndex >= 0) resultRows[selectedRowIndex].Deselect();
             
@@ -66,7 +66,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (selectedRowIndex >= 0)
+            if (selectedRowIndex >= 0 && resultRows.Count > 0)
             {
                 string rowOutput = "";
 
@@ -88,7 +88,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
         selectedRowIndex = -1;
         
-        foreach (Transform child in databaseResults.transform)
+        foreach (Transform child in DatabaseResultsObject.transform)
         {
             Destroy(child.gameObject);
         }
@@ -98,14 +98,14 @@ public class DatabaseResults : Singleton<DatabaseResults>
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(false);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(false);
     }
     
     public void ShowStationResults(IEnumerable<Station> stationData)
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(true);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(true);
         
         string[] stationTitles = new[] { "ID", "NAME", "NOTES" };
         
@@ -128,7 +128,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(true);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "NAME", "TYPE", "MAXFUEL", "MAXLOAD", "SPEED", "NOTES" };
         
@@ -152,7 +152,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(true);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "SPACECRAFT", "STATION", "TIME", "RESERVATION", "STATUS", "NOTES" };
         
@@ -176,7 +176,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(true);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "SPACECRAFT", "STATION", "DESTINATION", "DISTANCE", "TIME", "STATUS", "NOTES" };
         
@@ -204,7 +204,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     {
         DeleteResults();
         
-        databaseResults.transform.parent.gameObject.SetActive(true);
+        DatabaseResultsObject.transform.parent.gameObject.SetActive(true);
         
         string[] titles = new[] { "ID", "STATION", "SOURCE", "DESTINATION", "CONTENT", "WEIGHT", "TIME", "NOTES" };
         
@@ -230,7 +230,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
     
     private void InstantiateTitleRow(string[] titles)
     {
-        GameObject titleRowObject = Instantiate(titleRowPrefab, databaseResults.transform);
+        GameObject titleRowObject = Instantiate(titleRowPrefab, DatabaseResultsObject.transform);
 
         TitleRow titleRow = titleRowObject.GetComponent<TitleRow>();
 
@@ -248,7 +248,7 @@ public class DatabaseResults : Singleton<DatabaseResults>
 
     private void InstantiateResultRow(string[] results)
     {
-        GameObject resultRowObject = Instantiate(resultRowPrefab, databaseResults.transform);
+        GameObject resultRowObject = Instantiate(resultRowPrefab, DatabaseResultsObject.transform);
 
         ResultRow resultRow = resultRowObject.GetComponent<ResultRow>();
 
