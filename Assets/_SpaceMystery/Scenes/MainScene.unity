@@ -1981,7 +1981,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 1
   OverrideMinDistance: 1
-  OverrideMaxDistance: 800
+  OverrideMaxDistance: 1000
 --- !u!1001 &811462009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2434,7 +2434,7 @@ Transform:
   m_GameObject: {fileID: 943746138}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -5.03, y: 3.8400009, z: 2.542}
+  m_LocalPosition: {x: -4.599, y: 3.84, z: 3.251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

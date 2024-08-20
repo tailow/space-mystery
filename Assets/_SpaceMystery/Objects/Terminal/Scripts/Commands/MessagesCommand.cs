@@ -4,9 +4,8 @@ public class MessagesCommand : Command
     {
         DatabaseResults.Instance.HideResults();
         
-        return "skibidi\n" +
-               "there is a terrorist on the loose\n" +
-               "left station Theta at time 10\n" +
-               "type 'help' to see a list of commands";
+        return "There is a suspected terrorist.\n" +
+               "They departed station Theta at time 50.\n" +
+               "Type 'help' to see a list of commands.";
     }
 }
