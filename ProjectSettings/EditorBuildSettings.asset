@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_SpaceMystery/Scenes/IntroScene.unity
+    guid: 04ea9a658b5ccbf46ab18f1d89a94363
+  - enabled: 1
     path: Assets/_SpaceMystery/Scenes/MainScene.unity
     guid: f462d395fc87973409deb1d8e3f5c39c
   m_configObjects:
