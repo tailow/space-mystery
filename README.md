@@ -1,4 +1,4 @@
-# Thetabytes - Entry for the GMTK Game Jam 2024.
+# Thetabytes - Entry for the GMTK Game Jam 2024
 
 This game is about searching databases and figuring out the right queries to track down the suspect. Use logical deduction and tiny bits of guessing to find the right lead, but be aware not to get lost in the logs.
 
